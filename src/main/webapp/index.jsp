@@ -12,7 +12,7 @@
 <br/>
 <a href="ProductController">Bài 3</a>
 <br/>
-<a href="ProductController">Bài 3</a>
+<a href="EmployeeController?action=findAll">Bài 4</a>
 <br/>
 <a href="GameController">Bài 5</a>
 </body>
