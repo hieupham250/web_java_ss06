@@ -89,14 +89,14 @@ VALUES ('Nguyen Van A', '1990-01-01', '0901234567', 'vana@example.com', 15000000
 DELIMITER //
 create procedure find_all_book()
 begin
-    select * from Books;
+select * from Books;
 end;
 
 create procedure find_book_by_id(
     id_in int
 )
 begin
-    select * from Books where id = id_in;
+select * from Books where id = id_in;
 end;
 
 create procedure create_book(
@@ -106,8 +106,8 @@ create procedure create_book(
     quantity_in int
 )
 begin
-    insert into Books (title, author, genre, quantity)
-    values (title_in, author_in, genre_in, quantity_in);
+insert into Books (title, author, genre, quantity)
+values (title_in, author_in, genre_in, quantity_in);
 end;
 
 create procedure update_book(
@@ -118,19 +118,19 @@ create procedure update_book(
     quantity_in int
 )
 begin
-    update Books
-    set title    = title_in,
-        author   = author_in,
-        genre    = genre_in,
-        quantity = quantity_in
-    where id = id_in;
+update Books
+set title    = title_in,
+    author   = author_in,
+    genre    = genre_in,
+    quantity = quantity_in
+where id = id_in;
 end;
 
 create procedure delete_book(
     id_in int
 )
 begin
-    delete from Books where id = id_in;
+delete from Books where id = id_in;
 end;
 
 create procedure register_user(
@@ -140,8 +140,8 @@ create procedure register_user(
     phone_in varchar(20)
 )
 begin
-    insert into Users (username, password, email, phone)
-        values (username_in, password_in, email_in, phone_in);
+insert into Users (username, password, email, phone)
+values (username_in, password_in, email_in, phone_in);
 end;
 
 create procedure login_user(
@@ -149,13 +149,13 @@ create procedure login_user(
     password_in varchar(255)
 )
 begin
-    select * from Users
-        where username = username_in and password = password_in;
+select * from Users
+where username = username_in and password = password_in;
 end;
 
 create procedure find_all_products()
 begin
-    select * from Product;
+select * from Product;
 end;
 
 create procedure add_product_to_cart(
@@ -165,28 +165,28 @@ create procedure add_product_to_cart(
 )
 begin
     if exists(select 1 from cart where userId = userId_in and productId = productId_in) then
-        update cart
-            set quantity = quantity + quantity_in
-        where userId = userId_in and productId = productId_in;
-    else
+update cart
+set quantity = quantity + quantity_in
+where userId = userId_in and productId = productId_in;
+else
         insert into Cart(userId, productId, quantity)
             values (userId_in, productId_in, quantity_in);
-    end if;
+end if;
 end;
 
 create procedure find_cart_by_userId(
     userId_in int
 )
 begin
-    select p.id as product_id,
-           p.name as product_name,
-           p.price as product_price,
-           c.id as cart_id,
-           c.userId as cart_userId,
-           c.quantity as cart_quantity
-    from Cart c
-             join Product p on c.productId = p.id
-    where c.userId = userId_in;
+select p.id as product_id,
+       p.name as product_name,
+       p.price as product_price,
+       c.id as cart_id,
+       c.userId as cart_userId,
+       c.quantity as cart_quantity
+from Cart c
+         join Product p on c.productId = p.id
+where c.userId = userId_in;
 end;
 
 create procedure remove_product_from_cart(
@@ -194,7 +194,59 @@ create procedure remove_product_from_cart(
     productId_in int
 )
 begin
-    delete from Cart
-        where userId = userId_in and productId = productId_in;
+delete from Cart
+where userId = userId_in and productId = productId_in;
+end;
+
+create procedure find_all_employee()
+begin
+select * from Employee;
+end;
+
+create procedure find_employee_by_id(
+    id_in int
+)
+begin
+select * from Employee where id = id_in;
+end;
+
+create procedure create_employee(
+    name_in varchar(255),
+    birthday_in date,
+    phone_in varchar(20),
+    email_in varchar(255),
+    salary_in decimal(15, 2),
+    position_in varchar(100)
+)
+begin
+insert into Employee (name, birthday, phone, email, salary, position)
+values (name_in, birthday_in, phone_in, email_in, salary_in, position_in);
+end;
+
+create procedure update_employee(
+    id_in int,
+    name_in varchar(255),
+    birthday_in date,
+    phone_in varchar(20),
+    email_in varchar(255),
+    salary_in decimal(15, 2),
+    position_in varchar(100)
+)
+begin
+update Employee
+set name    = name_in,
+    birthday   = birthday_in,
+    phone    = phone_in,
+    email = email_in,
+    salary = salary_in,
+    position = position_in
+where id = id_in;
+end;
+
+create procedure delete_employee(
+    id_in int
+)
+begin
+delete from Employee where id = id_in;
 end;
 DELIMITER //
